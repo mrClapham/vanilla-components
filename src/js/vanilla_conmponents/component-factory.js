@@ -1,18 +1,40 @@
-const defaults ={
-    headline: "headline def",
-    strapline: "strapline"
+const _defaults = {
+    headline: "headline default",
+    strapline: "strapline default",
+    colour: 'rgba(255,0,255,1)'
 }
-const template = ()=> {
-    const {headline, strapline} = defaults;
-   return  `<div>factory:<br/>${headline}</div><div>${"strapline"}</div>`
+const _template = props => {
+    const { headline, strapline, colour } = { ..._defaults, ...props };
+    return `<hr /><div style="color: ${colour}" }>factory:<br/>
+            ${headline}</div>
+            <div>${strapline}</div>`
 }
 
-const render = (target, config)=>{
-   return  target.innerHTML = template();
-}
+const _render = (target, config, template = _template) => target.innerHTML = template(config);
 
-const proto = {create: (targ, config)=>{ render(targ, config)}, template: template, render: render}
+export default (target, config) => {
+    let { headline, strapline, colour } = { ..._defaults, ...config };
+    const render = () => _render(target, { headline, strapline, colour })
+    
+    return {
+        ..._defaults,
+        ...config,
+        render: render,
+        setHeadline: (value) => { 
+            headline = value; 
+            render();
+        },
+        getHeadline: () => { return headline },
+        setStrapline: (value) => { 
+            strapline = value; 
+            render();
+        },
+        getStrapline: () => { return strapline },
+        setColour: (value) => { 
+            colour = value; 
+            render();
+        },
+        setColour: () => { return colour }
+    }
 
-export default (target, config)=>{
-  return  { ...proto, config }
 }
