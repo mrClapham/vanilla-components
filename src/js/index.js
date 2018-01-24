@@ -11,8 +11,11 @@ function init() {
     const _header = HeaderVanilla.create({ text: "Default headline text" })
     .render(document.querySelector('#content-vanilla'));
 
-    const factory = Factory(document.querySelector('#content-vanilla'), {}).create();
+    const factory = Factory()
+    
+    const f1 = factory.create(document.querySelector('#content-vanilla'), {});
 
     console.log(factory)
+    console.log(f1)
 }
 

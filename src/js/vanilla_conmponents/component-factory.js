@@ -1,17 +1,17 @@
 const defaults ={
-    headline: "headline",
+    headline: "headline def",
     strapline: "strapline"
 }
 const template = ()=> {
     const {headline, strapline} = defaults;
-    `<div>factory:${"headline"}</div><div>${"strapline"}</div>`
+   return  `<div>factory:<br/>${headline}</div><div>${"strapline"}</div>`
 }
 
 const render = (target, config)=>{
-     target.innerHTML = template();
+   return  target.innerHTML = template();
 }
 
-const proto = {create: (templete, render)=>{return render}, template: template, render: render}
+const proto = {create: (targ, config)=>{ render(targ, config)}, template: template, render: render}
 
 export default (target, config)=>{
   return  { ...proto, config }
